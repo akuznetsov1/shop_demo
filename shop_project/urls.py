@@ -16,10 +16,15 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from shop_app import views 
+from django.conf.urls import include
 
 urlpatterns = [
     path('', views.ProductListView.as_view(), name='index'), 
     path('admin/', admin.site.urls),
-    path('product/<int:pk>/', views.ProductDetail.as_view(), name='detail'),
+    path('product/<int:pk>/', views.ProductDetail.as_view(), name='product_detail'),
     path('category/<int:pk>/', views.CategoryDetail.as_view(), name='category_detail'),
+    path('products/new/', views.ProductCreate.as_view(), name='product_create'),
+    path('products/<int:pk>/order', views.OrderFormView.as_view(), name='product_order'),
+    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/signup',views.SignUpView.as_view(),name='signup')
 ]
